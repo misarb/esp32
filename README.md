@@ -1,4 +1,4 @@
-# my_appe
+# ESP32 WITH FIREBASE FLUTTER APP
 
 A new Flutter project.
 
