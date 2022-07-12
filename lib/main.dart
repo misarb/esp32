@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/iotscreen': (BuildContext context) => IotScreen(),
       },
+      theme: ThemeData(brightness: Brightness.dark),
       debugShowCheckedModeBanner: true,
       home: IotScreen(),
     );

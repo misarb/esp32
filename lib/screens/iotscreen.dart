@@ -11,6 +11,13 @@ class IotScreen extends StatefulWidget {
 
 class _IotScreenState extends State<IotScreen> {
   @override
+  bool value = false;
+  buttonUpdate() {
+    setState(() {
+      value = !value;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -83,8 +90,12 @@ class _IotScreenState extends State<IotScreen> {
                     height: 20.0,
                   ),
                   FloatingActionButton.extended(
-                    onPressed: () {},
-                    label: Text("ON"),
+                    //focusColor: Colors.yellow,
+                    backgroundColor: value ? Colors.green : Colors.red,
+                    onPressed: () {
+                      buttonUpdate();
+                    },
+                    label: value ? Text("ON") : Text("OFF"),
                   )
                 ],
               )
