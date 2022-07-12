@@ -58,44 +58,19 @@ class _IotScreenState extends State<IotScreen> {
                     Column(
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
-                        Padding(
-                            padding: EdgeInsets.all(18),
-                            child: Text(
-                              "Temperateur",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                        Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              //snapshot.data!.snapshot.value.toString(),
-                              values["Temperateur"].toString(),
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
+                        WidgetData(
+                          title: "Temperateur",
+                        ),
+                        WidgetData(
+                          title: values["Temperateur"].toString(),
+                        ),
                         SizedBox(height: 20.0),
-                        Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              "Motor Vitess",
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                        Padding(
-                            padding: EdgeInsets.all(18),
-                            child: Text(
-                              values["vitesse"].toString(),
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
+                        WidgetData(
+                          title: "Motor Vitess",
+                        ),
+                        WidgetData(
+                          title: values["vitesse"].toString(),
+                        ),
                         SizedBox(
                           height: 20.0,
                         ),
@@ -129,5 +104,26 @@ class _IotScreenState extends State<IotScreen> {
     });
 
     dbRef.child("LightState").set({"switch": !value});
+  }
+}
+
+class WidgetData extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
+  WidgetData({
+    required this.title,
+  });
+  String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ));
   }
 }
