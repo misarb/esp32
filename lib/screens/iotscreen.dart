@@ -28,6 +28,22 @@ class _IotScreenState extends State<IotScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                'ESP32 WITH FIREBASE',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.blueGrey,
+      ),
       body: StreamBuilder(
         stream: dbRef.child("Data").onValue,
         builder: (context, snapshot) {
@@ -44,9 +60,6 @@ class _IotScreenState extends State<IotScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
-                      const Icon(
-                        Icons.clear_all,
-                      ),
                       const Text(
                         "Configurations",
                         style: TextStyle(
