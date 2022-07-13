@@ -11,8 +11,15 @@ class IotScreen extends StatefulWidget {
 class _IotScreenState extends State<IotScreen> {
   @override
   bool value = false;
+  double _sliderIncrement = 20.0;
 
   final dbRef = FirebaseDatabase.instance.ref();
+  servoControler(value) {
+    setState(() {
+      _sliderIncrement = value;
+    });
+  }
+
   buttonUpdate() {
     setState(() {
       value = !value;
@@ -82,6 +89,24 @@ class _IotScreenState extends State<IotScreen> {
                             writeIntoFirebase();
                           },
                           label: value ? Text("ON") : Text("OFF"),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        WidgetData(title: "Controle Servo Motor"),
+                        Slider(
+                          value: _sliderIncrement,
+                          min: 0,
+                          max: 180,
+                          divisions: 10,
+                          thumbColor: Colors.red,
+                          activeColor: Colors.purple,
+                          inactiveColor: Colors.redAccent,
+                          label: _sliderIncrement.round().toString(),
+                          onChanged: (value) {
+                            servoControler(value);
+                            writeIntoFirebase();
+                          },
                         )
                       ],
                     )
@@ -101,9 +126,14 @@ class _IotScreenState extends State<IotScreen> {
     dbRef.child("Data").set({
       "Temperateur": 0,
       "vitesse": 120,
+      //"controler": _sliderIncrement,
     });
-
-    dbRef.child("LightState").set({"switch": !value});
+    dbRef.child("LightState").set({
+      "switch": !value,
+    });
+    dbRef.child("MotorServer").set({
+      "controler": _sliderIncrement,
+    });
   }
 }
 
