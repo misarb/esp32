@@ -1,7 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:my_appe/screens/chartscreen.dart';
+import 'package:oscilloscope/oscilloscope.dart';
 
 class IotScreen extends StatefulWidget {
   @override
@@ -12,11 +17,14 @@ class _IotScreenState extends State<IotScreen> {
   @override
   bool value = false;
   double _sliderIncrement = 20.0;
+  List<double> traceSine = [];
 
   final dbRef = FirebaseDatabase.instance.ref();
+
   servoControler(value) {
     setState(() {
       _sliderIncrement = value;
+      // traceSine.add(_sliderIncrement);
     });
   }
 
@@ -48,7 +56,7 @@ class _IotScreenState extends State<IotScreen> {
         stream: dbRef.child("Data").onValue,
         builder: (context, snapshot) {
           Map<dynamic, dynamic> values =
-              snapshot.data!.snapshot.value as Map<dynamic, dynamic>;
+              snapshot.data?.snapshot.value as Map<dynamic, dynamic>;
           if (snapshot.hasData &&
               !snapshot.hasError &&
               snapshot.data!.snapshot.value != null) {
@@ -120,7 +128,21 @@ class _IotScreenState extends State<IotScreen> {
                             servoControler(value);
                             writeIntoFirebase();
                           },
-                        )
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        FloatingActionButton.extended(
+                            label: Text("Next Screen"),
+                            backgroundColor: Colors.blueAccent,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChartScreen()),
+                              );
+                            }),
+                        //scopeOne,
                       ],
                     )
                   ],

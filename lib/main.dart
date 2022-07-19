@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_appe/screens/chartscreen.dart';
 import 'package:my_appe/screens/iotscreen.dart';
+import 'package:my_appe/screens/test.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: <String, WidgetBuilder>{
         '/iotscreen': (BuildContext context) => IotScreen(),
+        '/chartscreen': (BuildContext context) => ChartScreen(),
+        '/test': (BuildContext context) => Test(),
       },
       theme: ThemeData(brightness: Brightness.dark),
       debugShowCheckedModeBanner: true,
