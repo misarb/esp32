@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:my_appe/screens/chartscreen.dart';
-import 'package:oscilloscope/oscilloscope.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class IotScreen extends StatefulWidget {
   @override
@@ -17,14 +16,12 @@ class _IotScreenState extends State<IotScreen> {
   @override
   bool value = false;
   double _sliderIncrement = 20.0;
-  List<double> traceSine = [];
 
   final dbRef = FirebaseDatabase.instance.ref();
 
   servoControler(value) {
     setState(() {
       _sliderIncrement = value;
-      // traceSine.add(_sliderIncrement);
     });
   }
 
@@ -55,11 +52,11 @@ class _IotScreenState extends State<IotScreen> {
       body: StreamBuilder(
         stream: dbRef.child("Data").onValue,
         builder: (context, snapshot) {
-          Map<dynamic, dynamic> values =
-              snapshot.data?.snapshot.value as Map<dynamic, dynamic>;
           if (snapshot.hasData &&
               !snapshot.hasError &&
               snapshot.data!.snapshot.value != null) {
+            Map<dynamic, dynamic> values =
+                snapshot.data?.snapshot.value as Map<dynamic, dynamic>;
             return Column(
               children: [
                 Padding(
@@ -132,8 +129,40 @@ class _IotScreenState extends State<IotScreen> {
                         SizedBox(
                           height: 20.0,
                         ),
+                        SleekCircularSlider(
+                          appearance: CircularSliderAppearance(
+                            customWidths: CustomSliderWidths(
+                              trackWidth: 3,
+                              progressBarWidth: 15,
+                              shadowWidth: 30,
+                            ),
+                            customColors: CustomSliderColors(
+                                shadowMaxOpacity: 0.5, //);
+                                shadowStep: 20),
+                            infoProperties: InfoProperties(
+                                bottomLabelStyle: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w600),
+                                bottomLabelText: 'Temp.',
+                                mainLabelStyle: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600),
+                                modifier: (double value) {
+                                  return '$_sliderIncrement ˚C ';
+                                }),
+                            startAngle: 90,
+                            angleRange: 360,
+                            size: 180.0,
+                            animationEnabled: true,
+                          ),
+                          min: 0,
+                          max: 180,
+                          initialValue: _sliderIncrement,
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
                         FloatingActionButton.extended(
-                            label: Text("Next Screen"),
+                            label: Text("Chart"),
                             backgroundColor: Colors.blueAccent,
                             onPressed: () {
                               Navigator.push(
@@ -142,7 +171,6 @@ class _IotScreenState extends State<IotScreen> {
                                     builder: (context) => ChartScreen()),
                               );
                             }),
-                        //scopeOne,
                       ],
                     )
                   ],
