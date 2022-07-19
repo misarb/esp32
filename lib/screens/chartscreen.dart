@@ -14,8 +14,6 @@ class ChartScreen extends StatefulWidget {
 }
 
 class _ChartScreen extends State<ChartScreen> {
-  @override
-  double _sliderIncrement = 20.0;
   List<double> traceData = [];
   Timer? _timer;
   double getData = 0.0;
@@ -32,12 +30,6 @@ class _ChartScreen extends State<ChartScreen> {
     super.initState();
     // create our timer to generate test values
     _timer = Timer.periodic(Duration(milliseconds: 500), _generateTrace);
-  }
-
-  servoControler(value) {
-    setState(() {
-      _sliderIncrement = value;
-    });
   }
 
   static double checkDouble(dynamic value) {
@@ -87,9 +79,6 @@ class _ChartScreen extends State<ChartScreen> {
               !snapshot.hasError &&
               snapshot.data!.snapshot.value != null) {
             getData = checkDouble(values["Temperateur"].toString());
-            print(
-                "************************************************************");
-            print(traceData);
 
             return Column(
               children: [
@@ -102,16 +91,5 @@ class _ChartScreen extends State<ChartScreen> {
         },
       ),
     );
-  }
-
-  Future<void> writeIntoFirebase() async {
-    dbRef.child("Data").set({
-      "Temperateur": 0,
-      "vitesse": 120,
-      //"controler": _sliderIncrement,
-    });
-    dbRef.child("MotorServer").set({
-      "controler": _sliderIncrement,
-    });
   }
 }
