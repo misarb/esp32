@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         '/iotscreen': (BuildContext context) => IotScreen(),
         '/chartscreen': (BuildContext context) => ChartScreen(),
       },
-      theme: ThemeData(brightness: Brightness.dark),
+      // theme: ThemeData(brightness: Brightness.dark),
       debugShowCheckedModeBanner: true,
       home: IotScreen(),
     );

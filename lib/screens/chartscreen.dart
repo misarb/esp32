@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:my_appe/screens/chartscreen.dart';
+
 import 'package:oscilloscope/oscilloscope.dart';
+
+import '../widgets/iotWedgets.dart';
+import 'iotscreen.dart';
 
 class ChartScreen extends StatefulWidget {
   @override
@@ -43,10 +45,10 @@ class _ChartScreen extends State<ChartScreen> {
   Widget build(BuildContext context) {
     Oscilloscope scopeOne = Oscilloscope(
       showYAxis: true,
-      yAxisColor: Colors.red,
+      yAxisColor: Colors.white,
       margin: EdgeInsets.all(20.0),
       strokeWidth: 2.0,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       traceColor: Colors.green,
       yAxisMax: 50.0,
       yAxisMin: -100.0,
@@ -61,7 +63,7 @@ class _ChartScreen extends State<ChartScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               Text(
-                'Chart',
+                'Chart your Data',
                 style: TextStyle(color: Colors.white),
               ),
             ],
@@ -72,16 +74,18 @@ class _ChartScreen extends State<ChartScreen> {
       body: StreamBuilder(
         stream: dbRef.child("Data").onValue,
         builder: (context, snapshot) {
-          Map<dynamic, dynamic> values =
-              snapshot.data?.snapshot.value as Map<dynamic, dynamic>;
-
           if (snapshot.hasData &&
               !snapshot.hasError &&
               snapshot.data!.snapshot.value != null) {
+            Map<dynamic, dynamic> values =
+                snapshot.data?.snapshot.value as Map<dynamic, dynamic>;
             getData = checkDouble(values["Temperateur"].toString());
 
             return Column(
               children: [
+                WidgetData(title: "Distance Chart"),
+                Expanded(flex: 1, child: scopeOne),
+                WidgetData(title: "Temp Chart"),
                 Expanded(flex: 1, child: scopeOne),
               ],
             );
