@@ -1,16 +1,44 @@
-# ESP32 WITH FIREBASE FLUTTER APP
+# Flutter App to display data from Sensor works with ESP32 and FIREBASE
+this app helps you to display Data in your phone and control angle Servo Motors ,the app connected to Firebase RTD
+you can display Temperature and speed of an steperMotor and also you can put data in Chart
+## Chart Screen
+![](images/3.jpg)
+## desplay and control screen
+![](images/1.jpg)
+![](images/4.jpg)
+## Technologies used
 
-A new Flutter project.
+This project uses Flutter. The reason I chose Flutter is that I am very comfortable with using the framework and that you only have to write once and can run anywhere.
 
-## Getting Started
+## Contributing
 
-This project is a starting point for a Flutter application.
+Contributions are always welcome!
+## To do
+[] Radar Screen to display Ultrasonic data as a radar detector
+[] UI upgrade 
+Clone this project
 
-A few resources to get you started if this is your first Flutter project:
+```
+  git clone https://github.com/misarb/esp32.git
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+CD into the project
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+  cd esp32/lib
+```
+
+Download dependencies 
+
+```bash
+  flutter pub get
+```
+
+Run the project
+
+```bash
+  flutter run
+```
+## Authors
+
+- [@misarb](https://github.com/misarb)
