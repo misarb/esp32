@@ -28,7 +28,7 @@ Contributions are always welcome!
 
 - Radar Screen to display Ultrasonic data as a radar detector.
 
-- I upgrade.
+- UI upgrade.
 
 ## Clone this project
 
