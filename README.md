@@ -26,9 +26,10 @@ This project uses Flutter. The reason I chose Flutter is that I am very comforta
 Contributions are always welcome!
 ## To do
 
-[] Radar Screen to display Ultrasonic data as a radar detector.
+[ ] Radar Screen to display Ultrasonic data as a radar detector.
 
-[] I upgrade.
+[ ] I upgrade.
+
 ## Clone this project
 
 ```
